@@ -34,7 +34,7 @@
             margin: 0;
             color: $dark-blue;
             font-size: 1.25rem; 
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .close-btn {
@@ -62,7 +62,7 @@
             label {
                 display: block;
                 font-size: 0.8rem; 
-                font-weight: 600;
+                font-weight: 400;
                 color: $text-primary;
                 margin-bottom: 0.35rem;
             }
@@ -139,7 +139,7 @@
             .toggle-label {
                 font-size: $font-size-label;
                 color: $text-primary;
-                font-weight: 500;
+                font-weight: 400;
             }
 
             .switch {
@@ -198,7 +198,7 @@
         }
 
         .error-message {
-            color: $error-color;
+            color: $white;
             font-size: 0.75rem;
             margin-bottom: 0.5rem;
         }
@@ -214,7 +214,7 @@
                 border: none;
                 border-radius: 6px;
                 font-size: 0.9rem;
-                font-weight: 600;
+                font-weight: 400;
                 cursor: pointer;
                 transition: all 0.2s;
             }

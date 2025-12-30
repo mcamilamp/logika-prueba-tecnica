@@ -40,19 +40,20 @@ export const createAction = async (
         color?: string,
         isActive?: boolean
     }) => {
+    try {
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('description', data.description);
 
-        if(data.icon) {
+        if (data.icon) {
             formData.append('icon', data.icon);
         }
 
-        if(data.color) {
+        if (data.color) {
             formData.append('color', data.color);
         }
 
-        formData.append('status', data.isActive ? 'Active' : 'Inactive');
+        formData.append('status', data.isActive ? '1' : '0');
 
         const response = await axios.post(`${API_URL}/actions/admin-add`, formData,
             {
@@ -62,5 +63,11 @@ export const createAction = async (
                 }
             });
 
-            return response.data;
+        return response.data;
+    } catch (error: any) {
+        if (error.response) {
+            console.error("Error: ", error.response.data);
+        }
+        throw error;
     }
+};

@@ -45,7 +45,6 @@ export const ActionModal: React.FC<ActionModalProps> = ({
                 color: color || undefined,
                 isActive
             });
-            // Reset fields
             setName('');
             setDescription('');
             setIcon(null);
