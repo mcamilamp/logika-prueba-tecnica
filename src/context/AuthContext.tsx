@@ -25,7 +25,8 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
             localStorage.setItem('auth_token', response.token);
             setError(null);
         } catch (error) {
-            setError('Credenciales inválidas');
+            setError('Email no se encuentra registrado');
+            throw error;
         } finally {
             setIsLoading(false);
         }

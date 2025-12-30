@@ -1,19 +1,43 @@
 @import 'variables';
 @import 'mixins';
 
+.login-layout {
+    min-height: 100vh;
+    @include flex-center;
+    position: relative;
+    width: 100%;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('/images/bg-pattern.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.2;
+        z-index: 0;
+    }
+}
+
 .login-container {
+    position: relative;
+    z-index: 1;
     background: $white;
     border-radius: $border-radius-lg;
-    padding: 2.5rem;
+    padding: 2rem;
     border: 1px solid $border-default;
     box-shadow: $shadow-md;
     width: 100%;
-    max-width: 500px;
+    max-width: 450px;
 
     img {
         display: block;
-        margin: 0 auto 1.5rem;
-        max-width: 180px;
+        margin: 0 auto 1.25rem;
+        max-width: 150px;
         height: auto;
     }
 

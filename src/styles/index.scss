@@ -10,7 +10,7 @@
 body {
     font-family: 'Archivo', sans-serif;
     min-height: 100vh;
-    @include flex-center;
+    background-color: #f3f4f6; 
 }
 
 .error-message {
@@ -18,4 +18,18 @@ body {
     color: $white;
     padding: $spacing-sm;
     border-radius: $border-radius;
+}
+
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: $white;
+    animation: spin 0.8s ease-in-out infinite;
+    margin: 0 auto; // Centrar en el botón
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }

@@ -4,7 +4,9 @@ $dark-blue: #18336e;
 $background: #f9fafb;
 $white: #ffffff;
 $black: #000000;
-$button-color: #888a8f;
+$black: #000000;
+$button-color: $blue; // Usar azul en lugar de gris
+$text-primary: #111827;
 $text-primary: #111827;
 $text-secondary: #6b7280;
 $border-default: #d1d5db;
