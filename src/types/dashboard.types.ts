@@ -5,6 +5,7 @@ export interface Action {
     icon?: string;
     status: string;
     creationDate: string;
+    color?: string;
 }
 
 export interface PaginatedResponse<T> {

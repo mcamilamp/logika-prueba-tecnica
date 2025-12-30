@@ -57,7 +57,10 @@ export const ActionTable = ({
                         <tr key={action?.id || index}>
                             <td>
                                 <div className="name-cell">
-                                    <div className="img-placeholder"></div>
+                                    <div 
+                                        className="img-placeholder" 
+                                        style={{ backgroundColor: action?.color || '#e5e7eb' }}
+                                    ></div>
                                     <span>{action?.name || 'Cargando...'}</span>
                                 </div>
                             </td>
@@ -71,9 +74,15 @@ export const ActionTable = ({
                                 </div>
                             </td>
                             <td>
-                                <span className={`status-badge ${String(action?.status || 'Active').toLowerCase()}`}>
-                                    {String(action?.status || 'Active')}
-                                </span>
+                                {(() => {
+                                    const statusRaw = String(action?.status || '').toLowerCase();
+                                    const statusText = (statusRaw === '1' || statusRaw === 'active') ? 'Active' : 'Inactive';
+                                    return (
+                                        <span className={`status-badge ${statusText.toLowerCase()}`}>
+                                            {statusText}
+                                        </span>
+                                    );
+                                })()}
                             </td>
 
                             <td className="desc-cell">{action?.description || 'Sin descripción'}</td>

@@ -34,6 +34,12 @@ export const ActionModal: React.FC<ActionModalProps> = ({
 
     const handleSubmit = async (e:React.FormEvent) => {
         e.preventDefault();
+        
+        if (!icon) {
+            setError('El logo es obligatorio');
+            return;
+        }
+
         setLoading(true);
         setError(null);
 
@@ -41,7 +47,7 @@ export const ActionModal: React.FC<ActionModalProps> = ({
             await onSubmit({
                 name, 
                 description, 
-                icon: icon || undefined,
+                icon: icon,
                 color: color || undefined,
                 isActive
             });
