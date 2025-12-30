@@ -292,10 +292,113 @@
                 text-transform: capitalize;
 
                 &.active {
-                    background-color: #dcfce7;
-                    color: $white;
+                    background-color: #bef7b8;
+                    border: 1px solid #0B8A00;
+                    color: #0B8A00;
+                }
+
+                &.inactive {
+                    background-color: #fef2f2;
+                    border: 1px solid #fa6262;
+                    color: #fa6262;
                 }
             }
+
+            // campo de descripción
+            .desc-cell {
+                max-width: 200px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: $text-primary;
+            }
+
+            // botones de acciones
+            .actions-cell {
+                display: flex;
+                gap: 0.5rem;
+
+                .action-btn {
+                    @include flex-center;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: $border-radius;
+                    cursor: pointer;
+                    border: none;
+                    background: none;
+                    transition: all 0.2s ease;
+
+                    &:hover {
+                        background-color: #d5d9e0;
+                        border-color: $dark-blue;
+                    }
+                    
+                }
+            }
+        }
+
+        .pagination {
+            @include flex-center;
+            margin-top: 1rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            background-color: $white;
+            font-size: $font-size-label;
+            color: $text-primary;
+
+            .pagination-info {
+                display: flex;
+                align-items: center;
+                gap: .75rem;
+
+                .page-size-select {
+                    padding: 4px 8px;
+                    border: 1px solid $border-default;
+                    border-radius: $border-radius;
+                    background: $white;
+                    color: $text-primary;
+                    cursor: pointer;
+                    font-size: $font-size-label;
+                    outline: none;
+
+                    &:hover { border-color: #9ca3af; }
+                }
+            }
+
+            .pagination-controls {
+                display: flex;
+                align-items: center;
+                gap: .75rem;
+
+                .page-range {
+                    margin-left: 2rem;
+                    font-weight: 500;
+                    color: $text-primary;
+                }
+
+                .arrows {
+                    display: flex;
+                    gap: 0.5rem;
+
+                    button {
+                        background: none;
+                        border: none;
+                        color: $text-secondary;
+                        font-size: 1.2rem;
+                        cursor: pointer;
+                        transition: all 0.2s ease;
+                        padding: 4px;
+                        @include flex-center;
+
+                        &:disabled { color: #e5e7eb; cursor: not-allowed; }
+                        &:not(:disabled):hover { color: $dark-blue; }
+                        
+
+                    }
+                }
+            }
+
+            
         }
     }
 }

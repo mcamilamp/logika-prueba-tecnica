@@ -17,13 +17,14 @@ export const Dashboard = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [pageNumber, setPageNumber] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
 
-    const fetchActions = async (page: number) => {
+    const fetchActions = async (page: number, size: number) => {
         if(!token) return;
         
         try {
             setLoading(true);
-            const response = await getActions(token, page);
+            const response = await getActions(token, page, size);
             setData(response);
             setError(null);
         } catch (err) {
@@ -41,10 +42,9 @@ export const Dashboard = () => {
                 console.log('Login Response:', JSON.parse(debugResponse));
             }
         } catch (e) {
-            // Error log silent
         }
-        if(token) fetchActions(pageNumber);
-    }, [pageNumber, token]);
+        if(token) fetchActions(pageNumber, pageSize);
+    }, [pageNumber, pageSize, token]);
 
     return (
         <div className="dashboard-layout">
@@ -87,8 +87,14 @@ export const Dashboard = () => {
                         actions={data?.data || []}
                         loading={loading}
                         pageNumber={pageNumber}
+                        pageSize={pageSize}
                         totalPages={data?.totalPages || 0}
+                        totalElements={data?.totalElements || 0}
                         onPageChange={setPageNumber}
+                        onPageSizeChange={(newSize) => {
+                            setPageSize(newSize);
+                            setPageNumber(1);
+                        }}
                     />
                 </main>
             </div>

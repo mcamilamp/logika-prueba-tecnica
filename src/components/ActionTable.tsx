@@ -1,21 +1,27 @@
 import type { Action } from '../types/dashboard.types';
-import { FiEdit2, FiTrash2, FiLink, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiLink, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
 import '../styles/Dashboard.scss'; 
 
 interface Props {
     actions: Action[];
     loading: boolean;
     pageNumber: number;
+    pageSize: number;
     totalPages: number;
+    totalElements: number;
     onPageChange: (page: number) => void;
+    onPageSizeChange: (size: number) => void;
 }
 
 export const ActionTable = ({ 
     actions = [],
     loading, 
     pageNumber, 
+    pageSize,
     totalPages, 
-    onPageChange}: Props ) => {
+    totalElements,
+    onPageChange,
+    onPageSizeChange}: Props ) => {
 
     const actionsList = Array.isArray(actions) ? actions : [];
 
@@ -92,13 +98,40 @@ export const ActionTable = ({
             </table>
 
             <div className="pagination">
-                <span>Resultados por página <b>10</b></span>
-                <div className="controls">
-                    <span>{pageNumber} - {totalPages} de {totalPages * 10}</span>
-                    <button disabled={pageNumber === 1} onClick={() => onPageChange(pageNumber - 1)}><FiChevronLeft /></button>
-                    <button disabled={pageNumber === totalPages} onClick={() => onPageChange(pageNumber + 1)}><FiChevronRight /></button>
+                <div className="pagination-info">
+                    <span>Resultados por página</span>
+                    <select 
+                        className="page-size-select"
+                        value={pageSize}
+                        onChange={(e) => onPageSizeChange(Number(e.target.value))}
+                    >
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+
+                <div className="pagination-controls">
+                    <span className="page-range">
+                        {((pageNumber - 1) * pageSize) + 1} - {Math.min(pageNumber * pageSize, totalElements)} de {totalElements}
+                    </span>
+                    
+                    <div className="arrows">
+                        <button disabled={pageNumber === 1} onClick={() => onPageChange(1)}>
+                            <FiChevronsLeft />
+                        </button>
+                        <button disabled={pageNumber === 1} onClick={() => onPageChange(pageNumber - 1)}>
+                            <FiChevronLeft />
+                        </button>
+                        <button disabled={pageNumber === totalPages} onClick={() => onPageChange(pageNumber + 1)}>
+                            <FiChevronRight />
+                        </button>
+                        <button disabled={pageNumber === totalPages} onClick={() => onPageChange(totalPages)}>
+                            <FiChevronsRight />
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>   
+    </div>
     );
 }
