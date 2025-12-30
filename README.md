@@ -14,36 +14,28 @@ Este repositorio contiene la solución a la prueba técnica para el cargo de Des
 
 ## Decisiones Técnicas y Justificaciones
 
-### 1. Arquitectura de Estilos: Sass (SCSS) con Mixins
-- **Decisión:** Utilicé Sass sobre CSS puro o Tailwind.
-- **Razón:** Sass permite una arquitectura de estilos escalable y mantenible, separando responsabilidades mediante variables, mixins y archivos parciales.
-Utilicé para centralizar la paleta de colores, tipografías y breakpoints, garantizando consistencia visual en toda la aplicación.
-Los mixins facilitaron la reutilización de patrones de diseño recurrentes (layout, efectos visuales y responsive), reduciendo duplicación de código y mejorando la mantenibilidad.
-Se priorizó Sass sobre CSS puro y Tailwind por ofrecer mayor control sobre el diseño y alinearse mejor con la estructura del proyecto.
+### Arquitectura y Estilos (Sass)
+Se eligió **Sass (SCSS)** por su capacidad para crear estilos escalables y mantenibles. El uso de **mixins** y **variables** permitió centralizar la identidad visual (colores y tipografías) y reutilizar patrones de diseño recurrentes, reduciendo la duplicación de código y facilitando el mantenimiento global.
 
-### 2. Seguridad y Configuración: Variables de Entorno (.env)
-- **Decisión:** Implementación de un archivo `.env` para almacenar las URLs de las APIs.
-- **Razón:** Es una **buena práctica de seguridad** y arquitectura. Separar los endpoints del código fuente evita la exposición de infraestructuras sensibles y permite que la aplicación sea fácilmente desplegable en diferentes entornos (Desarrollo, QA, Producción) simplemente cambiando el archivo de configuración.
+### Seguridad y Configuración (.env)
+Se implementó un archivo **.env** para gestionar los endpoints de las APIs de forma segura. Esta práctica evita la exposición de infraestructura sensible y cumple con los estándares de arquitectura de software para el manejo de múltiples entornos.
 
-### 3. Manejo de Formularios y Validación
+### Manejo de Formularios y Validación
 - **Librerías:** React Hook Form y Zod.
 - **Decisión:** Utilizar un esquema de validación basado en objetos.
 - **Razón:** Para el Login, `Zod` permite definir reglas claras (como formato de email y longitud de password) que se validan antes de disparar la petición a la red, mejorando la UX al dar feedback instantáneo al usuario y evitando peticiones innecesarias al servidor.
 
-### 4. Consumo de Datos: Axios
-- **Decisión:** Uso de Axios en lugar de Fetch API.
-- **Razón:** Axios maneja de forma más intuitiva las peticiones que requieren el envío de archivos (`FormData`) y la inclusión de headers de autorización (`Bearer Token`). Además, su robusto sistema de manejo de errores permite capturar respuestas del servidor (como el 400 Bad Request) de manera más sencilla para el debugging.
-
-### 5. Interfaz Visual: React Icons
-- **Razón:** Proporciona un conjunto de iconos consistente y ligero que mejora significativamente la navegación y la jerarquía visual de la tabla y los controles de paginación.
+### Consumo de APIs y Formularios
+- **Axios:** Seleccionado por su facilidad para manejar `FormData` y headers de autorización.
+- **React Hook Form / Zod:** Utilizados para garantizar validaciones eficientes y una UX fluida mediante feedback instantáneo antes de disparar peticiones.
 
 ## Supuestos y Hallazgos Técnicos (Inferencia de API)
 
 Durante el desarrollo, al no contar con una documentación exhaustiva del payload de creación, se tomaron los siguientes supuestos basados en la observación de los datos:
 
-1.  **Payload de Creación (Multipart/FormData):** Se identificó que para incluir el logo de la categoría/acción, el endpoint `/admin-add` debía recibir un objeto `FormData`. Esto es una deducción basada en el campo "Icon" presente en el listado.
-2.  **Mapeo de Estado:** Se descubrió que el API no acepta strings como "Active" en el envío del formulario. Se asumió y verificó que el servidor espera valores numéricos (`'1'` para Activo, `'0'` para Inactivo).
-3.  **Esquema de Token:** El Login puede devolver el token como un string plano o un objeto anidado dependiendo del escenario; el código se implementó con lógica defensiva para extraer el JWT de ambas formas.
-4.  **Diferencia de Dominios:** Se manejó explícitamente la comunicación con dos subdominios distintos (`apinetbo` para Auth y `api` para Dashboard), asegurando que los headers de CORS y autorización fueran correctos para cada uno.
+1.  **Manejo de Archivos:** Se determinó el uso de `FormData` para el endpoint `/admin-add` al identificar la necesidad de subir una imagen para el ícono.
+2.  **Estado del Registro:** Se infirió que el servidor espera valores numéricos (`'1'` para activo, `'0'` para inactivo) para el campo de estado.
+3.  **Extracción de Token:** Se implementó lógica defensiva para extraer el JWT, ya que el API puede retornarlo como string plano o dentro de un objeto.
+4.  **Multi-dominio:** Se configuró el manejo de headers para interactuar correctamente con dos subdominios distintos (`apinetbo` y `api`).
 
 
