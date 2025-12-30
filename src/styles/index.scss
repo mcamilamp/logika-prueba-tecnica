@@ -1,0 +1,21 @@
+@import 'variables';
+@import 'mixins';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Archivo', sans-serif;
+    min-height: 100vh;
+    @include flex-center;
+}
+
+.error-message {
+    background-color: $error-color;
+    color: $white;
+    padding: $spacing-sm;
+    border-radius: $border-radius;
+}
