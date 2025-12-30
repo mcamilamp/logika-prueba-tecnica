@@ -145,3 +145,77 @@
        color: $black;
     }
 }
+
+.main-content {
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        color: $black;
+    }
+
+    .tabs {
+        display: flex;
+        gap: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+        margin-bottom: 2rem;
+
+        button {
+            background: none;
+            border: none;
+            padding-bottom: 0.8rem;
+            font-size: 1rem;
+            color: $text-secondary;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+
+            &.active {
+                color: $dark-blue;
+                border-color: $dark-blue;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .actions-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+
+        .search-group {
+            display: flex;
+            gap: 1rem;
+
+            .search-input {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: $white;
+                border: 1px solid $border-default;
+                border-radius: $border-radius;
+                padding: 0.5rem 1rem;
+                width: 300px;
+                color: $text-primary;
+
+                input {
+                    border: none;
+                    outline: none;
+                    width: 100%;
+                }
+            }
+
+            .button-filter-btn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: none;
+                border: none;
+                color: $text-primary;
+                cursor: pointer;
+                font-weight: 600;
+            }
+        }
+    }
+}

@@ -9,8 +9,9 @@ import logo from "../../public/images/be-kind-logo.png";
 import logoWhite from "../../public/images/be-kind-blanco-logo.png";
 import '../styles/Dashboard.scss';
 import { Sidebar } from '../components/Sidebar';
+import { ActionTable } from '../components/ActionTable';
 
-import { FiHome, FiLogOut, FiPlus, FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FiHome, FiLogOut, FiPlus, FiChevronLeft, FiChevronRight, FiSearch, FiFilter } from "react-icons/fi";
 
 export const Dashboard = () => {
     const { token, logout } = useAuth();
@@ -58,6 +59,38 @@ export const Dashboard = () => {
                 <Sidebar />
 
                 <main className="main-content">
+                    <h1>Categorías</h1>
+
+                    <div className="tabs">
+                        <button className="active">Categorías</button>
+                        <button>Tipos</button>
+                        <button>Evidencias</button>
+                    </div>
+
+                    <div className="actions-bar">
+                        <div className="search-group">
+                            <div className="search-input">
+                                <FiSearch />
+                                <input type="text" placeholder="Buscar" />
+                            </div>
+
+                            <button className="button-filter-btn">
+                                <FiFilter /> Filtros
+                            </button>
+                        </div>
+
+                        <button className="button-create-btn">
+                            Crear tipo de categoría
+                        </button>
+                    </div>
+
+                    <ActionTable
+                        actions={data?.items || []}
+                        loading={loading}
+                        pageNumber={pageNumber}
+                        totalPages={data?.totalPages || 0}
+                        onPageChange={setPageNumber}
+                    />
                 </main>
             </div>
         </div>
