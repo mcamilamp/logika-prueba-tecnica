@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getActions } from '../services/actionService';
+import { getActions, createAction } from '../services/actionService';
 import type { Action, PaginatedResponse } from '../types/dashboard.types';
 import { ErrorMessage } from '../components/ErrorMessage';
 import '../styles/Dashboard.scss';
 import { Sidebar } from '../components/Sidebar';
 import { ActionTable } from '../components/ActionTable';
+import { ActionModal } from '../components/ActionModal';
 import { FiSearch, FiFilter } from "react-icons/fi";
 
 const logoWhite = "/images/be-kind-blanco-logo.png";
@@ -18,6 +19,19 @@ export const Dashboard = () => {
     const [error, setError] = useState<string | null>(null);
     const [pageNumber, setPageNumber] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleCreateAction = async (formData: { name: string; description: string; icon?: File }) => {
+        if (!token) return;
+        try {
+            await createAction(token, formData);
+            // Si tiene éxito, se actualiza la tabla
+            fetchActions(pageNumber, pageSize);
+        } catch (err) {
+            console.error('Error creating action:', err);
+            throw err;
+        }
+    };
 
     const fetchActions = async (page: number, size: number) => {
         if(!token) return;
@@ -36,13 +50,6 @@ export const Dashboard = () => {
     };
 
     useEffect(() => {
-        try {
-            const debugResponse = localStorage.getItem('debug_login_response');
-            if (debugResponse) {
-                console.log('Login Response:', JSON.parse(debugResponse));
-            }
-        } catch (e) {
-        }
         if(token) fetchActions(pageNumber, pageSize);
     }, [pageNumber, pageSize, token]);
 
@@ -76,8 +83,11 @@ export const Dashboard = () => {
                             </button>
                         </div>
 
-                        <button className="button-create-btn">
-                            Crear tipo de categoría
+                        <button 
+                            className="button-create-btn"
+                            onClick={() => setIsModalOpen(true)}
+                        >
+                            Crear tipo de acción
                         </button>
                     </div>
 
@@ -95,6 +105,12 @@ export const Dashboard = () => {
                             setPageSize(newSize);
                             setPageNumber(1);
                         }}
+                    />
+
+                    <ActionModal 
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        onSubmit={handleCreateAction}
                     />
                 </main>
             </div>

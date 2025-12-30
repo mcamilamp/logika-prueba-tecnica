@@ -30,3 +30,29 @@ export const getActions = async (
         throw error;
     }
 }
+
+export const createAction = async (
+    token: string,
+    data: {
+        name: string,
+        description: string,
+        icon?: File
+    }) => {
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('description', data.description);
+
+        if(data.icon) {
+            formData.append('icon', data.icon);
+        }
+
+        const response = await axios.post(`${API_URL}/actions/admin-add`, formData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+
+            return response.data;
+    }

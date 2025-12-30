@@ -44,8 +44,8 @@ export const ActionTable = ({
             <table>
                 <thead>
                     <tr>
-                        <th>Nombre de la categoria</th>
-                        <th>Icono de la categoria</th>
+                        <th>Nombre de acción</th>
+                        <th>Icono</th>
                         <th>Estado</th>
                         <th>Descripción</th>
                         <th>Fecha de creación</th>
