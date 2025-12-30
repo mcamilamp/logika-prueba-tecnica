@@ -1,0 +1,11 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin input-focus {
+    outline: none;
+    border-color: $blue;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
