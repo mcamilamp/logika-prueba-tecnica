@@ -137,7 +137,7 @@
             margin: 0.75rem 0;
 
             .toggle-label {
-                font-size: 0.85rem;
+                font-size: $font-size-label;
                 color: $text-primary;
                 font-weight: 500;
             }
@@ -249,6 +249,39 @@
                 }
             }
         }
+    }
+}
+
+.color-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .color-preview-box {
+        width: 38px;
+        height: 38px;
+        border-radius: $border-radius;
+        transition: background-color 0.2s;
+
+    }
+}
+
+.color-presets {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .color-preset-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: $border-radius;
+        border: 2px solid $white;
+        padding: 0;
+        transition: transform 0.2s;
+        cursor: pointer;
+
+        &:hover { transform: scale(1.1); }
+        &.active { box-shadow: 0 0 0 2px $blue; }
     }
 }
 

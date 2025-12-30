@@ -21,6 +21,15 @@ export const ActionModal: React.FC<ActionModalProps> = ({
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
+    const suggested_colors = [
+        '#00ACC1',
+        '#1E1B4B',
+        '#10B981',
+        '#F59E0B',
+        '#EF4444',
+        '#ff3da8ff'
+    ]
+
     if(!isOpen) return null;
 
     const handleSubmit = async (e:React.FormEvent) => {
@@ -117,6 +126,21 @@ export const ActionModal: React.FC<ActionModalProps> = ({
                             placeholder='Registra color codigo HEX'
                             required
                         />
+
+                        <div className="color-preview-box" style={{ backgroundColor: color }}></div>
+                    </div>
+
+                    <div className="color-presets">
+                        {suggested_colors.map(preset => (
+                            <button
+                            key={preset}
+                            type='button'
+                            className={`color-preset-btn ${color === preset ? 'active' : ''}`}
+                            style={{backgroundColor: preset}}
+                            onClick={() => setColor(preset)}
+                            title={preset}
+                            ></button>
+                        ))}
                     </div>
 
                     <div className="toggle-group">
