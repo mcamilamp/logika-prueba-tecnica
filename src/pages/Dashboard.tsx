@@ -6,6 +6,7 @@ import { Loader } from '../components/Loader';
 import { ErrorMessage } from '../components/ErrorMessage';
 import { useNavigate } from 'react-router-dom';
 import logo from "../../public/images/be-kind-logo.png";
+import logoWhite from "../../public/images/be-kind-blanco-logo.png";
 import '../styles/Dashboard.scss';
 import { Sidebar } from '../components/Sidebar';
 
@@ -49,7 +50,7 @@ export const Dashboard = () => {
         <div className="dashboard-layout">
 
             <header className="top-bar">
-                <img src={logo} alt="Logo" />
+                <img className='logo' src={logoWhite} alt="Logo" />
                 <div className="user-info">A</div>
             </header>
 

@@ -18,7 +18,7 @@ export const Sidebar = () => {
 
     return (
         <aside className="sidebar">
-            <div className="sidebar-header">
+            <div className="sidebar-logo-section">
                 <img src={logo} alt="Logo" className="logo" />
             </div>
             <nav>
@@ -33,7 +33,7 @@ export const Sidebar = () => {
                 <a href="#"><FiLayers /> Contenidos</a>
                 <a href="#"><FiGrid /> Categorias de acciones</a>
             </nav>
-            <button onClick={handleLogout} className="logout-button">
+            <button onClick={handleLogout} className="logout-btn">
                 <FiLogOut /> Cerrar sesión
             </button>
         </aside>
