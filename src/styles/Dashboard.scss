@@ -1,0 +1,39 @@
+@import 'variables';
+@import 'mixins';
+
+.dashboard-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f3f4f6;
+}
+
+.top-bar {
+    width: 100%;
+    height: 80px;
+    background-color: $dark-blue;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 10;
+
+    .logo {
+        max-width: 120px;
+        filter: brightness(0) invert(1); 
+    }
+
+    .user-info {
+        margin-left: auto;
+        color: $white;
+        background: #fcd34d; 
+        width: 40px; height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #1e1b4b;
+    }
+
+}
