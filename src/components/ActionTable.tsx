@@ -11,20 +11,21 @@ interface Props {
 }
 
 export const ActionTable = ({ 
-    actions, 
+    actions = [],
     loading, 
     pageNumber, 
     totalPages, 
     onPageChange}: Props ) => {
 
+    const actionsList = Array.isArray(actions) ? actions : [];
+
     if(loading) return (
         <div className="table-loading">
             Cargando datos...
         </div>
-
     )
 
-    if (actions.length === 0) {
+    if (actionsList.length === 0) {
         return (
             <div className="no-data">
                 No hay datos disponibles
@@ -46,24 +47,36 @@ export const ActionTable = ({
                     </tr>
                 </thead>
                 <tbody>
-                    {actions.map((action) => (
-                        <tr key={action.id}>
+                    {actionsList.map((action, index) => (
+                        <tr key={action?.id || index}>
                             <td>
                                 <div className="name-cell">
                                     <div className="img-placeholder"></div>
-                                    <span>{action.name}</span>
+                                    <span>{action?.name || 'Cargando...'}</span>
                                 </div>
                             </td>
                             <td>
-                                <div className="icon-badge">🧸</div>
+                                <div className="icon-badge">
+                                    {action?.icon && typeof action.icon === 'string' && action.icon.startsWith('http') ? (
+                                        <img src={action.icon} alt="icon" style={{width: '24px', height: '24px', borderRadius: '4px'}} />
+                                    ) : (
+                                        '-'
+                                    )}
+                                </div>
                             </td>
                             <td>
-                                <span className={`status-badge ${action.status.toLowerCase()}`}>{action.status}</span>
+                                <span className={`status-badge ${String(action?.status || 'Active').toLowerCase()}`}>
+                                    {String(action?.status || 'Active')}
+                                </span>
                             </td>
 
-                            <td className="desc-cell">{action.description}</td>
+                            <td className="desc-cell">{action?.description || 'Sin descripción'}</td>
 
-                            <td>{new Date(action.creationDate).toLocaleDateString()}</td>
+                            <td>
+                                {action?.creationDate && !isNaN(Date.parse(action.creationDate))
+                                    ? new Date(action.creationDate).toLocaleDateString() 
+                                    : 'Reciente'}
+                            </td>
                     
                             <td>
                                 <div className="actions-cell">
@@ -85,9 +98,7 @@ export const ActionTable = ({
                     <button disabled={pageNumber === 1} onClick={() => onPageChange(pageNumber - 1)}><FiChevronLeft /></button>
                     <button disabled={pageNumber === totalPages} onClick={() => onPageChange(pageNumber + 1)}><FiChevronRight /></button>
                 </div>
-                                        
             </div>
-
         </div>   
     );
 }

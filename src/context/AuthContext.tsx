@@ -2,27 +2,36 @@ import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { AuthContextType, LoginCredentials } from "../types";
 import { loginUser } from "../services/authService";
+import '../styles/Dashboard.scss';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: {children: ReactNode}) => {
     const [token, setToken] = useState<string | null>(null);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-
     useEffect(() => {
-        // revisa que el token este guardado en el localStorage
         const savedToken = localStorage.getItem('auth_token');
-        if(savedToken) setToken(savedToken);
+        if(savedToken) {
+            setToken(savedToken);
+        }
+        setIsLoading(false);
     }, []);
 
     const login = async (credentials: LoginCredentials) => {
         try {
             setIsLoading(true);
             const response = await loginUser(credentials);
-            setToken(response.token);
-            localStorage.setItem('auth_token', response.token);
+            
+            const finalToken = typeof response === 'string' ? response : (response.token || (response as any).data?.token);
+            
+            if (finalToken && finalToken.startsWith('eyJ')) {
+                setToken(finalToken);
+                localStorage.setItem('auth_token', finalToken);
+                localStorage.setItem('debug_login_response', JSON.stringify({ token: finalToken, original: response }));
+            }
+            
             setError(null);
         } catch (error) {
             setError('Email no se encuentra registrado');

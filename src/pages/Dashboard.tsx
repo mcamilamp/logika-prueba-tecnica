@@ -2,54 +2,52 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { getActions } from '../services/actionService';
 import type { Action, PaginatedResponse } from '../types/dashboard.types';
-import { Loader } from '../components/Loader';
 import { ErrorMessage } from '../components/ErrorMessage';
-import { useNavigate } from 'react-router-dom';
-import logo from "../../public/images/be-kind-logo.png";
-import logoWhite from "../../public/images/be-kind-blanco-logo.png";
 import '../styles/Dashboard.scss';
 import { Sidebar } from '../components/Sidebar';
 import { ActionTable } from '../components/ActionTable';
+import { FiSearch, FiFilter } from "react-icons/fi";
 
-import { FiHome, FiLogOut, FiPlus, FiChevronLeft, FiChevronRight, FiSearch, FiFilter } from "react-icons/fi";
+const logoWhite = "/images/be-kind-blanco-logo.png";
 
 export const Dashboard = () => {
-    const { token, logout } = useAuth();
-    const navigate = useNavigate();
+    const { token } = useAuth();
 
     const [data, setData] = useState<PaginatedResponse<Action> | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [pageNumber, setPageNumber] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
 
-    // función para cargar datos
     const fetchActions = async (page: number) => {
         if(!token) return;
+        
         try {
             setLoading(true);
             const response = await getActions(token, page);
             setData(response);
             setError(null);
         } catch (err) {
-            setError('Error al cargar las acciones');
+            console.error('Dashboard Error:', err);
+            setError('Error al cargar las acciones. Status: 403 Forbidden');
         } finally {
             setLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchActions(pageNumber);
-    }, [pageNumber]);
-
-    const handleLogout = () => {
-        logout();
-        navigate('/login');
-    };
+        try {
+            const debugResponse = localStorage.getItem('debug_login_response');
+            if (debugResponse) {
+                console.log('Login Response:', JSON.parse(debugResponse));
+            }
+        } catch (e) {
+            // Error log silent
+        }
+        if(token) fetchActions(pageNumber);
+    }, [pageNumber, token]);
 
     return (
         <div className="dashboard-layout">
-
             <header className="top-bar">
                 <img className='logo' src={logoWhite} alt="Logo" />
                 <div className="user-info">A</div>
@@ -59,12 +57,11 @@ export const Dashboard = () => {
                 <Sidebar />
 
                 <main className="main-content">
-                    <h1>Categorías</h1>
+                    <h1>Acciones</h1>
 
                     <div className="tabs">
-                        <button className="active">Categorías</button>
-                        <button>Tipos</button>
-                        <button>Evidencias</button>
+                        <button className="active">Listado</button>
+                        <button>Tipos de acciones</button>
                     </div>
 
                     <div className="actions-bar">
@@ -84,8 +81,10 @@ export const Dashboard = () => {
                         </button>
                     </div>
 
+                    {error && <ErrorMessage message={error} />}
+
                     <ActionTable
-                        actions={data?.items || []}
+                        actions={data?.data || []}
                         loading={loading}
                         pageNumber={pageNumber}
                         totalPages={data?.totalPages || 0}
@@ -95,9 +94,6 @@ export const Dashboard = () => {
             </div>
         </div>
     )
-
-    
-
 }
 
 export default Dashboard;

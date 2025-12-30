@@ -1,4 +1,4 @@
-import logo from "/images/be-kind-logo.png";
+const logo = "/images/be-kind-logo.png";
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -28,7 +28,7 @@ export const Sidebar = () => {
                 <a href="#"><FiDollarSign /> Sponsors</a>
                 <a href="#"><FiShoppingBag /> Marketplace</a>
                 <a href="#" className="active">
-                    <FiMapPin /> Acciones
+                    <FiMapPin /> Bakanes
                 </a>
                 <a href="#"><FiLayers /> Contenidos</a>
                 <a href="#"><FiGrid /> Categorias de acciones</a>

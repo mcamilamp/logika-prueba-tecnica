@@ -217,5 +217,85 @@
                 font-weight: 600;
             }
         }
+
+        .button-create-btn {
+            background-color: $dark-blue;
+            color: $white;
+            padding: 0.5rem 1rem;
+            border-radius: $border-radius;
+            cursor: pointer;
+            font-weight: 600;
+        }
+    }
+
+    // Tabla
+    .table-container {
+        background: $white;
+        border-radius: $border-radius;
+        overflow: hidden;
+        border: 1px solid #e5e7eb;
+        margin-top: 1rem;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            text-align: left;
+
+            th {
+                padding: 1rem 1.5rem;
+                background-color: #f9fafb;
+                color: $text-primary;
+                font-size: $font-size-label;
+                border-bottom: 1px solid $border-default;
+            }
+
+            td {
+                padding: 1rem 1.5rem;
+                border-bottom: none;
+                vertical-align: middle;
+                font-size: $font-size-label;
+                color: $text-primary;
+            }
+
+            tbody tr {
+                transition: background-color 0.2s ease;
+                &:hover {
+                    background-color: #eff2f5;
+                }
+            }
+
+            .name-cell {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+
+                .img-placeholder, img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: $border-radius;
+                    background-color: #e5e7eb;
+                    object-fit: cover;
+                }
+
+                span {
+                    font-weight: 500;
+                }
+            }
+
+            .status-badge {
+                display: inline-block;
+                padding: 0.25rem 0.75rem;
+                border-radius: $border-radius;
+                font-size: $font-size-label;
+                font-weight: 500;
+                text-transform: capitalize;
+
+                &.active {
+                    background-color: #dcfce7;
+                    color: $white;
+                }
+            }
+        }
     }
 }

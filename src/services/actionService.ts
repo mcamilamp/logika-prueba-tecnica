@@ -9,7 +9,9 @@ export const getActions = async (
     pageSize: number = 10
 ) => {
     try {
-        const response = await axios.get<PaginatedResponse<Action>>(`${API_URL}/actions/admin-list`, {
+        const fullUrl = `${API_URL}/actions/admin-list`; 
+        
+        const response = await axios.get<PaginatedResponse<Action>>(fullUrl, {
             params: {
                 pageNumber,
                 pageSize
@@ -18,9 +20,13 @@ export const getActions = async (
                 Authorization: `Bearer ${token}`
             }
         });
-        return response.data;
+
+        const result = (response.data as any).data || response.data;
+        return result;
     } catch (error) {
-        console.error('Error al obtener las acciones:', error);
+        if (axios.isAxiosError(error)) {
+            console.error('API Error Status:', error.response?.status);
+        }
         throw error;
     }
 }

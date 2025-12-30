@@ -1,17 +1,16 @@
 export interface Action {
-    id: number;
+    id: string;
     name: string;
     description: string;
+    icon?: string;
     status: string;
     creationDate: string;
 }
 
 export interface PaginatedResponse<T> {
-    items: T[];
+    data: T[];
     pageNumber: number;
     pageSize: number;
+    totalElements: number;
     totalPages: number;
-    totalCount: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
 }
