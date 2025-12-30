@@ -21,7 +21,13 @@ export const Dashboard = () => {
     const [pageSize, setPageSize] = useState(10);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const handleCreateAction = async (formData: { name: string; description: string; icon?: File }) => {
+    const handleCreateAction = async (formData: { 
+        name: string; 
+        description: string; 
+        icon?: File;
+        color?: string;
+        isActive?: boolean;
+    }) => {
         if (!token) return;
         try {
             await createAction(token, formData);
