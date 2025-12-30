@@ -22,7 +22,31 @@ export const ActionModal: React.FC<ActionModalProps> = ({
     if(!isOpen) return null;
 
     const handleSubmit = async (e:React.FormEvent) => {
-        
-    }
+        e.preventDefault();
+        setLoading(true);
+        setError(null);
+
+        try {
+            await onSubmit({name, description, icon: icon || undefined});
+            setName('');
+            setDescription('');
+            setIcon(null);
+            setLoading(false);
+            onClose();
+        } catch (err) {
+            setError('Hubo un error al crear la acción. Por favor intentar de nuevo.');
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files && e.target.files[0]) {
+            setIcon(e.target.files[0]);
+        }
+    };
+
+    
 
 }
