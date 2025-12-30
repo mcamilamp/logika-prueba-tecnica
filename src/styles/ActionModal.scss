@@ -1,4 +1,5 @@
 @import './variables';
+@import './mixins';
 
 .modal-overlay {
     position: fixed;
@@ -17,9 +18,9 @@
 .modal-content {
     background: $white;
     width: 90%;
-    max-width: 480px;
+    max-width: 400px; 
     border-radius: 12px;
-    padding: 1.5rem 1.5rem 0;
+    padding: 1.25rem; 
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     animation: modal-enter 0.3s ease-out;
 
@@ -32,14 +33,14 @@
         h2 {
             margin: 0;
             color: $dark-blue;
-            font-size: 1.5rem;
+            font-size: 1.25rem; 
             font-weight: 700;
         }
 
         .close-btn {
             background: none;
             border: none;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: $text-secondary;
             cursor: pointer;
             padding: 4px;
@@ -55,24 +56,24 @@
 
     form {
         .form-group {
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.65rem; 
             position: relative;
 
             label {
                 display: block;
-                font-size: 0.85rem;
+                font-size: 0.8rem; 
                 font-weight: 600;
                 color: $text-primary;
-                margin-bottom: 0.5rem;
+                margin-bottom: 0.35rem;
             }
 
             input[type="text"],
             textarea {
                 width: 100%;
-                padding: 0.75rem 1rem;
+                padding: 0.6rem 0.8rem; 
                 border: 1px solid $border-default;
-                border-radius: 8px;
-                font-size: 0.95rem;
+                border-radius: 6px;
+                font-size: 0.85rem;
                 color: $text-primary;
                 background: $white;
                 box-sizing: border-box;
@@ -80,6 +81,7 @@
 
                 &::placeholder {
                     color: #93969e;
+                    font-size: 0.85rem;
                 }
 
                 &:focus {
@@ -89,15 +91,15 @@
             }
 
             textarea {
-                min-height: 60px;
+                min-height: 50px; 
                 resize: none;
             }
 
             .char-counter {
                 text-align: right;
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 color: $text-secondary;
-                margin-top: 0.25rem;
+                margin-top: 0.15rem;
             }
 
             .file-upload-field {
@@ -105,19 +107,19 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    padding: 0.75rem 1rem;
+                    padding: 0.6rem 0.8rem;
                     border: 1px solid $border-default;
-                    border-radius: 8px;
+                    border-radius: 6px;
                     color: #93969e;
                     cursor: pointer;
                     background: $white;
 
                     span {
-                        font-size: 0.95rem;
+                        font-size: 0.85rem;
                     }
 
                     svg {
-                        font-size: 1.1rem;
+                        font-size: 1rem;
                         color: $text-primary;
                     }
 
@@ -131,11 +133,11 @@
         .toggle-group {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin: 1rem 0;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
 
             .toggle-label {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
                 color: $text-primary;
                 font-weight: 500;
             }
@@ -143,8 +145,8 @@
             .switch {
                 position: relative;
                 display: inline-block;
-                width: 44px;
-                height: 24px;
+                width: 38px;
+                height: 20px;
 
                 input {
                     opacity: 0;
@@ -161,15 +163,15 @@
                     bottom: 0;
                     background-color: #d8edf3;
                     transition: .4s;
-                    border: 1.5px solid #00acc1;
+                    border: 1.2px solid #00acc1;
 
                     &:before {
                         position: absolute;
                         content: "";
-                        height: 16px;
-                        width: 16px;
+                        height: 14px;
+                        width: 14px;
                         left: 2px;
-                        bottom: 2.5px;
+                        bottom: 1.8px;
                         background-color: #00acc1;
                         transition: .4s;
                     }
@@ -182,17 +184,12 @@
                     }
                 }
 
-                input:focus + .slider {
-                    box-shadow: 0 0 1px #00acc1;
-                }
-
                 input:checked + .slider:before {
-                    transform: translateX(20px);
+                    transform: translateX(18px);
                 }
 
-                /* Rounded sliders */
                 .slider.round {
-                    border-radius: 24px;
+                    border-radius: 20px;
                     &:before {
                         border-radius: 50%;
                     }
@@ -202,48 +199,53 @@
 
         .error-message {
             color: $error-color;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
         }
 
         .modal-actions {
             display: flex;
-            border-top: 1px solid #eee;
-            margin: 0 -1.5rem; 
+            gap: 0.75rem;
+            margin-top: 1.25rem;
             
             button {
                 flex: 1;
-                padding: 0.8rem;
+                padding: 0.6rem;
                 border: none;
-                font-size: 0.95rem;
+                border-radius: 6px;
+                font-size: 0.9rem;
                 font-weight: 600;
                 cursor: pointer;
-                transition: background-color 0.2s;
-                background: none;
+                transition: all 0.2s;
             }
 
             .cancel-btn {
+                background-color: transparent;
+                border: 1.5px solid $dark-blue;
                 color: $dark-blue;
-                border-right: 1px solid #eee;
                 
                 &:hover {
-                    background-color: #f9fafb;
+                    background-color: rgba(30, 27, 75, 0.05);
                 }
             }
 
             .submit-btn {
-                color: #b3b3b3; 
-                background-color: #ccc; 
-                color: $text-secondary;
-
+                color: $white;
+                background-color: #d1d5db;
+                
                 &:not(:disabled) {
                     background-color: $dark-blue;
                     color: $white;
+
+                    &:hover {
+                        background-color: lighten($dark-blue, 10%);
+                    }
                 }
 
                 &:disabled {
                     cursor: not-allowed;
                     background-color: #d1d5db;
+                    color: $text-secondary;
                 }
             }
         }
