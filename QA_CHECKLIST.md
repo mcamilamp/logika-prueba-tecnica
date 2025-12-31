@@ -14,5 +14,6 @@ Este documento contiene las pruebas funcionales para validar el flujo completo d
 | **08** | **Acciones** | Crear Acción con Datos Válidos | 1. Completar todos los campos (Nombre, Descripción, Color, Logo).<br>2. Hacer clic en "Crear". | El modal se cierra, se muestra la nueva acción en el listado y se envía la petición Multipart/FormData al backend. |
 | **09** | **Acciones** | Validación de Campos en Creación | 1. Intentar guardar una acción sin adjuntar el Logo/Icono. | El sistema muestra un mensaje de error "El logo es obligatorio" y no envía la petición. |
 | **10** | **Acciones** | Selector de Color Funcional | 1. Elegir un color de los preajustes (presets).<br>2. Escribir un código HEX manualmente. | El cuadro de previsualización del color se actualiza según la selección o el texto ingresado. |
-| **11** | **General** | Responsividad | 1. Redimensionar la pantalla a vista móvil (375px - 768px). | El Sidebar se oculta/adapta y la tabla permite scroll horizontal o se ajusta para ser legible. |
+| **11** | **General** | Validación de Código HEX | 1. Ingresar un código HEX válido (ej: #FF5733).
+2. Ingresar un código HEX inválido (ej: 123456, #ZZZZZZ). | El sistema acepta únicamente códigos HEX válidos, muestra error de validación ante valores inválidos y no permite continuar. |
 | **12** | **Seguridad** | Acceso Protegido (ProtectedRoute) | 1. Cerrar el navegador.<br>2. Intentar ingresar directamente a `/dashboard` sin haber iniciado sesión. | El sistema redirige automáticamente a la página de `/login`. |
