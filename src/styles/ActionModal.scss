@@ -1,0 +1,297 @@
+@import './variables';
+@import './mixins';
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.modal-content {
+    background: $white;
+    width: 90%;
+    max-width: 400px; 
+    border-radius: 12px;
+    padding: 1.25rem; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    animation: modal-enter 0.3s ease-out;
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        h2 {
+            margin: 0;
+            color: $dark-blue;
+            font-size: 1.25rem; 
+            font-weight: 600;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: $text-secondary;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            transition: color 0.2s;
+
+            &:hover {
+                color: $black;
+            }
+        }
+    }
+
+    form {
+        .form-group {
+            margin-bottom: 0.65rem; 
+            position: relative;
+
+            label {
+                display: block;
+                font-size: 0.8rem; 
+                font-weight: 400;
+                color: $text-primary;
+                margin-bottom: 0.35rem;
+            }
+
+            input[type="text"],
+            textarea {
+                width: 100%;
+                padding: 0.6rem 0.8rem; 
+                border: 1px solid $border-default;
+                border-radius: 6px;
+                font-size: 0.85rem;
+                color: $text-primary;
+                background: $white;
+                box-sizing: border-box;
+                transition: border-color 0.2s;
+
+                &::placeholder {
+                    color: #93969e;
+                    font-size: 0.85rem;
+                }
+
+                &:focus {
+                    outline: none;
+                    border-color: $blue;
+                }
+            }
+
+            textarea {
+                min-height: 50px; 
+                resize: none;
+            }
+
+            .char-counter {
+                text-align: right;
+                font-size: 0.7rem;
+                color: $text-secondary;
+                margin-top: 0.15rem;
+            }
+
+            .file-upload-field {
+                .upload-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0.6rem 0.8rem;
+                    border: 1px solid $border-default;
+                    border-radius: 6px;
+                    color: #93969e;
+                    cursor: pointer;
+                    background: $white;
+
+                    span {
+                        font-size: 0.85rem;
+                    }
+
+                    svg {
+                        font-size: 1rem;
+                        color: $text-primary;
+                    }
+
+                    &:hover {
+                        border-color: #9ca3af;
+                    }
+                }
+            }
+        }
+
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+
+            .toggle-label {
+                font-size: $font-size-label;
+                color: $text-primary;
+                font-weight: 400;
+            }
+
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 38px;
+                height: 20px;
+
+                input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+
+                .slider {
+                    position: absolute;
+                    cursor: pointer;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #d8edf3;
+                    transition: .4s;
+                    border: 1.2px solid #00acc1;
+
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        height: 14px;
+                        width: 14px;
+                        left: 2px;
+                        bottom: 1.8px;
+                        background-color: #00acc1;
+                        transition: .4s;
+                    }
+                }
+
+                input:checked + .slider {
+                    background-color: #00acc1;
+                    &:before {
+                        background-color: white;
+                    }
+                }
+
+                input:checked + .slider:before {
+                    transform: translateX(18px);
+                }
+
+                .slider.round {
+                    border-radius: 20px;
+                    &:before {
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+
+        .error-message {
+            color: $white;
+            font-size: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.25rem;
+            
+            button {
+                flex: 1;
+                padding: 0.6rem;
+                border: none;
+                border-radius: 6px;
+                font-size: 0.9rem;
+                font-weight: 400;
+                cursor: pointer;
+                transition: all 0.2s;
+            }
+
+            .cancel-btn {
+                background-color: transparent;
+                border: 1.5px solid $dark-blue;
+                color: $dark-blue;
+                
+                &:hover {
+                    background-color: rgba(30, 27, 75, 0.05);
+                }
+            }
+
+            .submit-btn {
+                color: $white;
+                background-color: #d1d5db;
+                
+                &:not(:disabled) {
+                    background-color: $dark-blue;
+                    color: $white;
+
+                    &:hover {
+                        background-color: lighten($dark-blue, 10%);
+                    }
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+                    background-color: #d1d5db;
+                    color: $text-secondary;
+                }
+            }
+        }
+    }
+}
+
+.color-input-wrapper {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    .color-preview-box {
+        width: 38px;
+        height: 38px;
+        border-radius: $border-radius;
+        transition: background-color 0.2s;
+
+    }
+}
+
+.color-presets {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+
+    .color-preset-btn {
+        width: 24px;
+        height: 24px;
+        border-radius: $border-radius;
+        border: 2px solid $white;
+        padding: 0;
+        transition: transform 0.2s;
+        cursor: pointer;
+
+        &:hover { transform: scale(1.1); }
+        &.active { box-shadow: 0 0 0 2px $blue; }
+    }
+}
+
+@keyframes modal-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
