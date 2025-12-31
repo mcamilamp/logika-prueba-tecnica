@@ -1,7 +1,9 @@
 import axios from "axios";
 import type { Action, PaginatedResponse } from "../types/dashboard.types";
 
-const API_URL = import.meta.env.VITE_API_URL_DASHBOARD;
+const API_URL = (typeof window !== 'undefined' && window.location.hostname.includes('netlify.app'))
+    ? '/api'
+    : import.meta.env.VITE_API_URL_DASHBOARD;
 
 export const getActions = async (
     token: string, 
