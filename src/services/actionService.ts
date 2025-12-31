@@ -2,8 +2,8 @@ import axios from "axios";
 import type { Action, PaginatedResponse } from "../types/dashboard.types";
 
 // HARDCODED ID: BUILD_2025_12_30_v5
-// En Vercel, este path es reescrito a: https://dev.api.bekindnetwork.com/api/v1/...
-const API_URL = '/api/v1';
+// En Vercel, usa serverless function: /api/actions?path=/actions/admin-list
+const API_URL = '/api/actions';
 
 console.log('ActionService loaded. API_URL:', API_URL);
 
@@ -13,10 +13,11 @@ export const getActions = async (
     pageSize: number = 10
 ) => {
     try {
-        const fullUrl = `${API_URL}/actions/admin-list`;
-        console.log('Calling getActions with URL:', fullUrl);
+        const fullUrl = `${API_URL}`;
+        console.log('Calling getActions with URL:', fullUrl, { pageNumber, pageSize });
         const response = await axios.get<PaginatedResponse<Action>>(fullUrl, {
             params: {
+                path: '/actions/admin-list',
                 pageNumber,
                 pageSize
             },
@@ -56,10 +57,13 @@ export const createAction = async (
 
         formData.append('status', data.isActive ? '1' : '0');
 
-        const url = `${API_URL}/actions/admin-add`;
+        const url = `${API_URL}`;
         console.log('Calling createAction with URL:', url);
 
         const response = await axios.post(url, formData, {
+            params: {
+                path: '/actions/admin-add'
+            },
             headers: {
                 Authorization: `Bearer ${token}`
             }

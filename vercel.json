@@ -1,29 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/api/v1/:match*",
-      "destination": "https://dev.api.bekindnetwork.com/api/v1/:match*"
-    },
-    {
-      "source": "/auth/:match*",
-      "destination": "https://dev.apinetbo.bekindnetwork.com/api/Authentication/:match*"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=3600"
-        }
-      ]
-    }
-  ]
+  "outputDirectory": "dist"
 }
