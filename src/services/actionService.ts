@@ -1,6 +1,7 @@
 import axios from "axios";
 import type { Action, PaginatedResponse } from "../types/dashboard.types";
 
+// Hardcoded relative path to ensure proxy usage
 const API_URL = '/api';
 
 export const getActions = async (
@@ -8,14 +9,8 @@ export const getActions = async (
     pageNumber: number = 1, 
     pageSize: number = 10
 ) => {
-    if (!API_URL) {
-        console.error("CRITICAL: VITE_API_URL_DASHBOARD is not defined.");
-        throw new Error('Configuración de API faltante');
-    }
     try {
-        const fullUrl = `${API_URL.replace(/\/$/, '')}/actions/admin-list`;
-        console.debug('[actionService] getActions ->', { url: fullUrl, pageNumber, pageSize, hasToken: !!token });
-
+        const fullUrl = `${API_URL}/actions/admin-list`;
         const response = await axios.get<PaginatedResponse<Action>>(fullUrl, {
             params: {
                 pageNumber,
@@ -26,13 +21,8 @@ export const getActions = async (
             }
         });
 
-        console.debug('[actionService] getActions response status:', response.status);
-        const result = (response.data as any).data || response.data;
-        return result;
+        return (response.data as any).data || response.data;
     } catch (error) {
-        if (axios.isAxiosError(error)) {
-            console.error('API Error Status:', error.response?.status);
-        }
         throw error;
     }
 }
@@ -46,10 +36,6 @@ export const createAction = async (
         color?: string,
         isActive?: boolean
     }) => {
-    if (!API_URL) {
-        console.error("CRITICAL: VITE_API_URL_DASHBOARD is not defined.");
-        throw new Error('Configuración de API faltante');
-    }
     try {
         const formData = new FormData();
         formData.append('name', data.name);
@@ -65,22 +51,16 @@ export const createAction = async (
 
         formData.append('status', data.isActive ? '1' : '0');
 
-        const url = `${API_URL.replace(/\/$/, '')}/actions/admin-add`;
-        console.debug('[actionService] createAction ->', { url, hasToken: !!token, name: data.name });
+        const url = `${API_URL}/actions/admin-add`;
 
-        // Do not set Content-Type manually for FormData; the browser will add the correct boundary.
         const response = await axios.post(url, formData, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
 
-        console.debug('[actionService] createAction response status:', response.status);
         return response.data;
     } catch (error: any) {
-        if (error.response) {
-            console.error("Error: ", error.response.data);
-        }
         throw error;
     }
 };
