@@ -3,14 +3,14 @@
   publish = "dist"
 
 [[redirects]]
-  from = "/api/*"
-  to = "https://dev.api.bekindnetwork.com/api/v1/:splat"
+  from = "/auth/*"
+  to = "https://dev.apinetbo.bekindnetwork.com/api/Authentication/:splat"
   status = 200
   force = true
 
 [[redirects]]
-  from = "/auth/*"
-  to = "https://dev.apinetbo.bekindnetwork.com/api/Authentication/:splat"
+  from = "/api/actions*"
+  to = "https://dev.api.bekindnetwork.com/api/v1/actions:splat"
   status = 200
   force = true
 
