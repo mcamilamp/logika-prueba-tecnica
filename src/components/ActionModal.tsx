@@ -40,6 +40,13 @@ export const ActionModal: React.FC<ActionModalProps> = ({
             return;
         }
 
+        // Validar formato HEX
+        const hexRegex = /^#([A-Fa-f0-9]{3,4}){1,2}$/;
+        if (color && !hexRegex.test(color)) {
+            setError('El color debe ser un código HEX válido (ej: #FFFFFF)');
+            return;
+        }
+
         setLoading(true);
         setError(null);
 
