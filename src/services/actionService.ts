@@ -2,7 +2,8 @@ import axios from "axios";
 import type { Action, PaginatedResponse } from "../types/dashboard.types";
 
 // HARDCODED ID: BUILD_2025_12_30_v5
-const API_URL = '/api';
+// En Vercel, este path es reescrito a: https://dev.api.bekindnetwork.com/api/v1/...
+const API_URL = '/api/v1';
 
 console.log('ActionService loaded. API_URL:', API_URL);
 

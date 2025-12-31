@@ -2,6 +2,7 @@ import axios from "axios";
 import type { LoginCredentials, LoginResponse } from '../types/auth.types';
 
 // HARDCODED ID: BUILD_2025_12_30_v5
+// En Vercel, este path es reescrito a: https://dev.apinetbo.bekindnetwork.com/api/Authentication/...
 const AUTH_API_URL = '/auth';
 
 console.log('AuthService loaded. AUTH_API_URL:', AUTH_API_URL);
