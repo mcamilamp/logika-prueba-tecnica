@@ -1,13 +1,12 @@
 import axios from "axios";
 import type { LoginCredentials, LoginResponse } from '../types/auth.types';
 
+// Hardcoded relative path to ensure proxy usage
 const AUTH_API_URL = '/auth';
 
 export const loginUser = async (credentials: LoginCredentials): Promise<LoginResponse> => {
   try {
-    console.debug('[authService] loginUser ->', { url: `${AUTH_API_URL}/Login` });
     const response = await axios.post<LoginResponse>(`${AUTH_API_URL}/Login`, credentials);
-    console.debug('[authService] loginUser response status:', response.status);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
