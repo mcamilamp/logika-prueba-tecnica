@@ -75,32 +75,3 @@ export const createAction = async (
         throw error;
     }
 };
-
-export const deleteAction = async (
-    token: string,
-    actionId: string
-) => {
-    try {
-        const formData = new FormData();
-        formData.append('id', actionId);
-
-        const url = `${API_URL}`;
-        console.log('Calling deleteAction with actionId:', actionId);
-
-        const response = await axios.post(url, formData, 
-            {
-                params: {
-                    path: '/actions/admin-delete'
-                },
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
-
-        return response.data;
-    } catch (error: any) {
-        console.error('deleteAction error:', error);
-        throw error;
-    }
-};
