@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import type { Action } from '../types/dashboard.types';
 import { FiEdit2, FiTrash2, FiLink, FiChevronLeft, FiChevronRight, FiChevronsLeft, FiChevronsRight } from "react-icons/fi";
+import { DeleteConfirmModal } from './DeleteConfirmModal';
 import '../styles/Dashboard.scss'; 
 
 interface Props {
@@ -26,19 +28,33 @@ export const ActionTable = ({
     onDelete}: Props ) => {
 
     const actionsList = Array.isArray(actions) ? actions : [];
+    const [deleteModal, setDeleteModal] = useState<{ isOpen: boolean; actionId: string; actionName: string; isLoading: boolean }>({
+        isOpen: false,
+        actionId: '',
+        actionName: '',
+        isLoading: false
+    });
 
-    const handleDelete = async (actionId: string, actionName: string) => {
+    const handleDeleteClick = (actionId: string, actionName: string) => {
+        setDeleteModal({ isOpen: true, actionId, actionName, isLoading: false });
+    };
+
+    const handleConfirmDelete = async () => {
         if (!onDelete) return;
         
-        const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar la acción "${actionName}"?`);
-        if (!confirmed) return;
-
+        setDeleteModal(prev => ({ ...prev, isLoading: true }));
         try {
-            await onDelete(actionId);
+            await onDelete(deleteModal.actionId);
+            setDeleteModal({ isOpen: false, actionId: '', actionName: '', isLoading: false });
         } catch (error) {
             console.error('Error deleting action:', error);
+            setDeleteModal(prev => ({ ...prev, isLoading: false }));
             alert('Error al eliminar la acción. Por favor intenta nuevamente.');
         }
+    };
+
+    const handleCancelDelete = () => {
+        setDeleteModal({ isOpen: false, actionId: '', actionName: '', isLoading: false });
     };
 
     if(loading) return (
@@ -114,7 +130,7 @@ export const ActionTable = ({
                                     <button className="action-btn" title="Editar"><FiEdit2 /></button>
                                     <button 
                                         className="action-btn delete-btn" 
-                                        onClick={() => handleDelete(action?.id || '', action?.name || 'Acción')}
+                                        onClick={() => handleDeleteClick(action?.id || '', action?.name || 'Acción')}
                                         title="Eliminar"
                                     >
                                         <FiTrash2 />
@@ -163,6 +179,14 @@ export const ActionTable = ({
                     </div>
                 </div>
             </div>
+
+            <DeleteConfirmModal 
+                isOpen={deleteModal.isOpen}
+                actionName={deleteModal.actionName}
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+                isLoading={deleteModal.isLoading}
+            />
     </div>
     );
 }

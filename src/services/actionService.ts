@@ -84,17 +84,18 @@ export const deleteAction = async (
         const url = `${API_URL}`;
         console.log('Calling deleteAction with actionId:', actionId);
 
-        // Enviar como POST con X-HTTP-Method-Override para simular DELETE
-        // Algunos APIs lo requieren así
-        const response = await axios.post(url, { id: actionId }, {
-            params: {
-                path: `/actions/admin-delete`
-            },
-            headers: {
-                Authorization: `Bearer ${token}`,
-                'X-HTTP-Method-Override': 'DELETE'
+        // Enviar ID en el body, no en la URL
+        const response = await axios.post(url, 
+            { actionId },
+            {
+                params: {
+                    path: '/actions/admin-delete'
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
-        });
+        );
 
         return response.data;
     } catch (error: any) {
