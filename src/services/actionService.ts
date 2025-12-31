@@ -81,14 +81,16 @@ export const deleteAction = async (
     actionId: string
 ) => {
     try {
+        const formData = new FormData();
+        formData.append('id', actionId);
+
         const url = `${API_URL}`;
         console.log('Calling deleteAction with actionId:', actionId);
 
-        // Intentar con DELETE HTTP method y ID en la path
-        const response = await axios.delete(url, 
+        const response = await axios.post(url, formData, 
             {
                 params: {
-                    path: `/actions/admin-delete/${actionId}`
+                    path: '/actions/admin-delete'
                 },
                 headers: {
                     Authorization: `Bearer ${token}`
