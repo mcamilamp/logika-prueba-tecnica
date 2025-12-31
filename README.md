@@ -2,6 +2,11 @@
 
 Este repositorio contiene la solución a la prueba técnica para el cargo de Desarrollador Frontend. La aplicación consiste en un sistema de gestión de acciones/categorías con autenticación segura y visualización de datos en tiempo real.
 
+## Demo en Vivo
+
+Puedes acceder a la versión desplegada del proyecto aquí:  
+[**https://be-kind-prueba-tecnica.netlify.app/**](https://be-kind-prueba-tecnica.netlify.app/)
+
 ## Configuración del Proyecto
 
 1. **Instalar dependencias:** `npm install`
