@@ -11,18 +11,15 @@ export const getActions = async (
     pageSize: number = 10
 ) => {
     try {
-        const fullUrl = `${API_URL}/actions/admin-list`; 
-        
+        const fullUrl = `${API_URL}/actions/admin-list`;
+        console.debug('[actionService] getActions ->', { url: fullUrl, pageNumber, pageSize, hasToken: !!token });
+
         const response = await axios.get<PaginatedResponse<Action>>(fullUrl, {
-            params: {
-                pageNumber,
-                pageSize
-            },
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
+            params: { pageNumber, pageSize },
+            headers: { Authorization: `Bearer ${token}` }
         });
 
+        console.debug('[actionService] getActions response status:', response.status);
         const result = (response.data as any).data || response.data;
         return result;
     } catch (error) {
@@ -57,14 +54,17 @@ export const createAction = async (
 
         formData.append('status', data.isActive ? '1' : '0');
 
-        const response = await axios.post(`${API_URL}/actions/admin-add`, formData,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+        const url = `${API_URL}/actions/admin-add`;
+        console.debug('[actionService] createAction ->', { url, hasToken: !!token, name: data.name });
 
+        // Do not set Content-Type manually for FormData; the browser will add the correct boundary.
+        const response = await axios.post(url, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        console.debug('[actionService] createAction response status:', response.status);
         return response.data;
     } catch (error: any) {
         if (error.response) {
