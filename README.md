@@ -42,7 +42,7 @@ Durante el desarrollo, al no contar con una documentación exhaustiva del payloa
 3.  **Extracción de Token:** Se implementó lógica defensiva para extraer el JWT, ya que el API puede retornarlo como string plano o dentro de un objeto.
 4.  **Multi-dominio:** Se configuró el manejo de headers para interactuar correctamente con dos subdominios distintos (`apinetbo` y `api`).
 
-### 5.  QA Funcional
+### QA Funcional
 
 El repositorio incluye el archivo QA_CHECKLIST.md con pruebas funcionales que cubren:
 
