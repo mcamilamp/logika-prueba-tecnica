@@ -1,11 +1,7 @@
 {
-  "routes": [
-    { "src": "/api/(.*)", "dest": "https://dev.api.bekindnetwork.com/api/v1/$1" },
-    { "src": "/auth/(.*)", "dest": "https://dev.apinetbo.bekindnetwork.com/api/Authentication/$1" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/images/(.*)", "dest": "/images/$1" },
-    { "src": "/favicon.ico", "dest": "/favicon.ico" },
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/api/:match*", "destination": "https://dev.api.bekindnetwork.com/api/v1/:match*" },
+    { "source": "/auth/:match*", "destination": "https://dev.apinetbo.bekindnetwork.com/api/Authentication/:match*" },
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
