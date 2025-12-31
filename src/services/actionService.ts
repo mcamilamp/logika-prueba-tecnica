@@ -84,12 +84,11 @@ export const deleteAction = async (
         const url = `${API_URL}`;
         console.log('Calling deleteAction with actionId:', actionId);
 
-        // Enviar ID como query parameter en el path
-        const response = await axios.post(url, 
-            null,
+        // Intentar con DELETE HTTP method y ID en la path
+        const response = await axios.delete(url, 
             {
                 params: {
-                    path: `/actions/admin-delete?id=${actionId}`
+                    path: `/actions/admin-delete/${actionId}`
                 },
                 headers: {
                     Authorization: `Bearer ${token}`
