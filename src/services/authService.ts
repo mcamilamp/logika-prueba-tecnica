@@ -7,10 +7,9 @@ const AUTH_API_URL = (typeof window !== 'undefined' && window.location.hostname.
 
 export const loginUser = async (credentials: LoginCredentials): Promise<LoginResponse> => {
   try {
-    const response = await axios.post<LoginResponse>(
-      `${AUTH_API_URL}/Login`,
-      credentials
-    );
+    console.debug('[authService] loginUser ->', { url: `${AUTH_API_URL}/Login` });
+    const response = await axios.post<LoginResponse>(`${AUTH_API_URL}/Login`, credentials);
+    console.debug('[authService] loginUser response status:', response.status);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
