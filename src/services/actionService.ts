@@ -1,8 +1,10 @@
 import axios from "axios";
 import type { Action, PaginatedResponse } from "../types/dashboard.types";
 
-// Hardcoded relative path to ensure proxy usage
+// HARDCODED ID: BUILD_2025_12_30_v5
 const API_URL = '/api';
+
+console.log('ActionService loaded. API_URL:', API_URL);
 
 export const getActions = async (
     token: string, 
@@ -11,6 +13,7 @@ export const getActions = async (
 ) => {
     try {
         const fullUrl = `${API_URL}/actions/admin-list`;
+        console.log('Calling getActions with URL:', fullUrl);
         const response = await axios.get<PaginatedResponse<Action>>(fullUrl, {
             params: {
                 pageNumber,
@@ -23,6 +26,7 @@ export const getActions = async (
 
         return (response.data as any).data || response.data;
     } catch (error) {
+        console.error('getActions error:', error);
         throw error;
     }
 }
@@ -52,6 +56,7 @@ export const createAction = async (
         formData.append('status', data.isActive ? '1' : '0');
 
         const url = `${API_URL}/actions/admin-add`;
+        console.log('Calling createAction with URL:', url);
 
         const response = await axios.post(url, formData, {
             headers: {
@@ -61,6 +66,7 @@ export const createAction = async (
 
         return response.data;
     } catch (error: any) {
+        console.error('createAction error:', error);
         throw error;
     }
 };
