@@ -11,6 +11,7 @@ interface Props {
     totalElements: number;
     onPageChange: (page: number) => void;
     onPageSizeChange: (size: number) => void;
+    onDelete?: (actionId: string) => Promise<void>;
 }
 
 export const ActionTable = ({ 
@@ -21,9 +22,24 @@ export const ActionTable = ({
     totalPages, 
     totalElements,
     onPageChange,
-    onPageSizeChange}: Props ) => {
+    onPageSizeChange,
+    onDelete}: Props ) => {
 
     const actionsList = Array.isArray(actions) ? actions : [];
+
+    const handleDelete = async (actionId: string, actionName: string) => {
+        if (!onDelete) return;
+        
+        const confirmed = window.confirm(`¿Estás seguro de que deseas eliminar la acción "${actionName}"?`);
+        if (!confirmed) return;
+
+        try {
+            await onDelete(actionId);
+        } catch (error) {
+            console.error('Error deleting action:', error);
+            alert('Error al eliminar la acción. Por favor intenta nuevamente.');
+        }
+    };
 
     if(loading) return (
         <div className="table-loading">
@@ -95,9 +111,15 @@ export const ActionTable = ({
                     
                             <td>
                                 <div className="actions-cell">
-                                    <button className="action-btn"><FiEdit2 /></button>
-                                    <button className="action-btn"><FiTrash2 /></button>
-                                    <button className="action-btn"><FiLink /></button>
+                                    <button className="action-btn" title="Editar"><FiEdit2 /></button>
+                                    <button 
+                                        className="action-btn delete-btn" 
+                                        onClick={() => handleDelete(action?.id || '', action?.name || 'Acción')}
+                                        title="Eliminar"
+                                    >
+                                        <FiTrash2 />
+                                    </button>
+                                    <button className="action-btn" title="Abrir enlace"><FiLink /></button>
                                 </div>
                             </td>
                         </tr>

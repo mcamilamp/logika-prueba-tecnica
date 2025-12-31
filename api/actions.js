@@ -16,11 +16,13 @@ export default async function handler(req, res) {
     // Construir URL de destino
     let targetUrl = `https://dev.api.bekindnetwork.com/api/v1${path || ''}`;
     
-    // Agregar parámetros query
-    const params = new URLSearchParams();
-    if (pageNumber) params.append('pageNumber', pageNumber);
-    if (pageSize) params.append('pageSize', pageSize);
-    if (params.toString()) targetUrl += `?${params.toString()}`;
+    // Agregar parámetros query (solo para GET)
+    if (req.method === 'GET') {
+      const params = new URLSearchParams();
+      if (pageNumber) params.append('pageNumber', pageNumber);
+      if (pageSize) params.append('pageSize', pageSize);
+      if (params.toString()) targetUrl += `?${params.toString()}`;
+    }
 
     console.log(`[API Proxy] ${req.method} ${req.url} → ${targetUrl}`);
 
@@ -39,8 +41,8 @@ export default async function handler(req, res) {
       headers,
     };
 
-    // Agregar body si existe
-    if (req.method !== 'GET' && req.body) {
+    // Agregar body si existe (para POST, PUT, PATCH)
+    if (['POST', 'PUT', 'PATCH'].includes(req.method) && req.body) {
       if (req.body instanceof FormData) {
         options.body = req.body;
       } else if (typeof req.body === 'object') {

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getActions, createAction } from '../services/actionService';
+import { getActions, createAction, deleteAction } from '../services/actionService';
 import type { Action, PaginatedResponse } from '../types/dashboard.types';
 import { ErrorMessage } from '../components/ErrorMessage';
 import '../styles/Dashboard.scss';
@@ -35,6 +35,18 @@ export const Dashboard = () => {
             fetchActions(pageNumber, pageSize);
         } catch (err) {
             console.error('Error creating action:', err);
+            throw err;
+        }
+    };
+
+    const handleDeleteAction = async (actionId: string) => {
+        if (!token) return;
+        try {
+            await deleteAction(token, actionId);
+            // Refrescar la tabla
+            fetchActions(pageNumber, pageSize);
+        } catch (err) {
+            console.error('Error deleting action:', err);
             throw err;
         }
     };
@@ -119,6 +131,7 @@ export const Dashboard = () => {
                             setPageSize(newSize);
                             setPageNumber(1);
                         }}
+                        onDelete={handleDeleteAction}
                     />
 
                     <ActionModal 
