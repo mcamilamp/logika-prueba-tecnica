@@ -47,9 +47,17 @@ export const Dashboard = () => {
             const response = await getActions(token, page, size);
             setData(response);
             setError(null);
-        } catch (err) {
+        } catch (err: any) {
             console.error('Dashboard Error:', err);
-            setError('Error al cargar las acciones. Status: 403 Forbidden');
+            const status = err.response?.status;
+            let msg = 'Error al cargar las acciones.';
+            
+            if (status === 403) msg += ' Acceso prohibido (403).';
+            else if (status === 401) msg += ' Sesión expirada o no autorizada (401).';
+            else if (!navigator.onLine) msg = 'Sin conexión a internet.';
+            else msg += ` Status: ${status || 'Unknown'}`;
+
+            setError(msg);
         } finally {
             setLoading(false);
         }

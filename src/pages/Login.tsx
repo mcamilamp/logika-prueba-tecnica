@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { AiOutlineMail } from "react-icons/ai";
 import { IoLockClosedOutline } from "react-icons/io5";
 import {AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import logo from "/images/be-kind-logo.png";
+const logo = "/images/be-kind-logo.png";
 import "../styles/Login.scss";
 
 

@@ -33,8 +33,8 @@ export const AuthProvider = ({ children }: {children: ReactNode}) => {
             }
             
             setError(null);
-        } catch (error) {
-            setError('Email no se encuentra registrado');
+        } catch (error: any) {
+            setError(error.message || 'Error al iniciar sesión');
             throw error;
         } finally {
             setIsLoading(false);
