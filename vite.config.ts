@@ -6,15 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/api/login': {
+      '/auth': {
         target: 'https://dev.apinetbo.bekindnetwork.com/api/Authentication',
         changeOrigin: true,
-        rewrite: (path) => {
-          // /api/login?path=/Login → /Login
-          const url = new URL(path, 'http://localhost');
-          const pathParam = url.searchParams.get('path') || '/Login';
-          return pathParam;
-        }
+        rewrite: (path) => path.replace(/^\/auth/, '')
       },
       '/api/actions': {
         target: 'https://dev.api.bekindnetwork.com/api/v1',
@@ -28,12 +23,8 @@ export default defineConfig({
           params.delete('path');
           return pathParam + (params.toString() ? `?${params.toString()}` : '');
         }
-      },
-      '/auth': {
-        target: 'https://dev.apinetbo.bekindnetwork.com/api/Authentication',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/auth/, '')
       }
     }
   }
 })
+
