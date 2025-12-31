@@ -1,9 +1,7 @@
 import axios from "axios";
 import type { LoginCredentials, LoginResponse } from '../types/auth.types';
 
-const AUTH_API_URL = (typeof window !== 'undefined' && (window.location.hostname.includes('netlify.app') || window.location.hostname.includes('vercel.app')))
-  ? '/auth'
-  : import.meta.env.VITE_API_AUTH_URL;
+const AUTH_API_URL = '/auth';
 
 export const loginUser = async (credentials: LoginCredentials): Promise<LoginResponse> => {
   try {
