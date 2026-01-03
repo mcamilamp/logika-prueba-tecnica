@@ -12,6 +12,13 @@ Este repositorio contiene la solución a la prueba técnica para el cargo de Des
    ```
 3. **Iniciar app:** `npm run dev`
 
+## Credenciales de Ejemplo
+Para probar la funcionalidad de login, puedes usar las siguientes credenciales de ejemplo.
+
+**"username": "a.berrio@yopmail.com"**
+
+**"password": "AmuFK8G4Bh64Q1uX+IxQhw=="**
+
 ## Decisiones Técnicas y Justificaciones
 
 ### Arquitectura y Estilos (Sass)
